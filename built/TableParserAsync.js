@@ -33,6 +33,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+//import * as _ from "lodash";
 var TableParser = (function () {
     function TableParser() {
     }
@@ -43,6 +44,11 @@ var TableParser = (function () {
                 tbody = tableHtml.tBodies[0];
                 attributes = this.getAttributesFromHtml((tableHtml.tHead.children[0]));
                 numberOfPromises = tbody.rows.length / threshold + 1;
+                /*let datachunks = _.chunk(tbody.rows, numberOfPromises);
+                _.each(datachunks,dataChunk => {
+                    let result = this.createPromise((dataChunk) as any, attributes);
+                    result.then(data => { callback(data) });
+                });*/
                 for (i = 0; i < numberOfPromises; i++) {
                     startingIndex = i * threshold;
                     endingIndex = startingIndex + threshold;
