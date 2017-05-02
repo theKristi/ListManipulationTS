@@ -1,6 +1,6 @@
 class List{
-	_list:any[];
-	constructor(list:any[]){
-		
+	private _list:<T>[];
+	constructor(list:<T>[]){
+		this._list=list;
 	}
 }
