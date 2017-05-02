@@ -1,0 +1,69 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'D:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'D:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'typescript' ]
+2 info using npm@4.1.2
+3 info using node@v7.5.0
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readGlobalPackageData
+7 silly fetchPackageMetaData typescript
+8 silly fetchNamedPackageData typescript
+9 silly mapToRegistry name typescript
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry https://registry.npmjs.org/
+12 silly mapToRegistry data Result {
+12 silly mapToRegistry   raw: 'typescript',
+12 silly mapToRegistry   scope: null,
+12 silly mapToRegistry   escapedName: 'typescript',
+12 silly mapToRegistry   name: 'typescript',
+12 silly mapToRegistry   rawSpec: '',
+12 silly mapToRegistry   spec: 'latest',
+12 silly mapToRegistry   type: 'tag' }
+13 silly mapToRegistry uri https://registry.npmjs.org/typescript
+14 verbose request uri https://registry.npmjs.org/typescript
+15 verbose request no auth needed
+16 info attempt registry request try #1 at 10:55:41 AM
+17 verbose request id 8aa71cee5c56a39c
+18 http request GET https://registry.npmjs.org/typescript
+19 info retry will retry, error on last attempt: Error: self signed certificate in certificate chain
+20 info attempt registry request try #2 at 10:55:51 AM
+21 http request GET https://registry.npmjs.org/typescript
+22 info retry will retry, error on last attempt: Error: self signed certificate in certificate chain
+23 info attempt registry request try #3 at 10:56:51 AM
+24 http request GET https://registry.npmjs.org/typescript
+25 silly fetchPackageMetaData Error: self signed certificate in certificate chain
+25 silly fetchPackageMetaData     at TLSSocket.<anonymous> (_tls_wrap.js:1085:38)
+25 silly fetchPackageMetaData     at emitNone (events.js:86:13)
+25 silly fetchPackageMetaData     at TLSSocket.emit (events.js:186:7)
+25 silly fetchPackageMetaData     at TLSSocket._finishInit (_tls_wrap.js:603:8)
+25 silly fetchPackageMetaData     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:433:38)
+25 silly fetchPackageMetaData  error for typescript { Error: self signed certificate in certificate chain
+25 silly fetchPackageMetaData     at TLSSocket.<anonymous> (_tls_wrap.js:1085:38)
+25 silly fetchPackageMetaData     at emitNone (events.js:86:13)
+25 silly fetchPackageMetaData     at TLSSocket.emit (events.js:186:7)
+25 silly fetchPackageMetaData     at TLSSocket._finishInit (_tls_wrap.js:603:8)
+25 silly fetchPackageMetaData     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:433:38) code: 'SELF_SIGNED_CERT_IN_CHAIN' }
+26 silly rollbackFailedOptional Starting
+27 verbose stack TypeError: Cannot read property 'path' of null
+27 verbose stack     at Installer.rollbackFailedOptional (D:\Program Files\nodejs\node_modules\npm\lib\install.js:511:29)
+27 verbose stack     at Array.<anonymous> (D:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\bind-actor.js:15:8)
+27 verbose stack     at LOOP (D:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:15:14)
+27 verbose stack     at D:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:18:7
+27 verbose stack     at D:\Program Files\nodejs\node_modules\npm\lib\install.js:337:5
+27 verbose stack     at Array.<anonymous> (D:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\bind-actor.js:15:8)
+27 verbose stack     at LOOP (D:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:15:14)
+27 verbose stack     at chain (D:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:20:5)
+27 verbose stack     at D:\Program Files\nodejs\node_modules\npm\lib\install.js:294:5
+27 verbose stack     at D:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:16:22
+28 verbose cwd C:\Users\kmarks\repos\ListManipulationTS\ListManipulationTS
+29 error Windows_NT 6.1.7601
+30 error argv "D:\\Program Files\\nodejs\\node.exe" "D:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "-g" "typescript"
+31 error node v7.5.0
+32 error npm  v4.1.2
+33 error Cannot read property 'path' of null
+34 error If you need help, you may report this error at:
+34 error     <https://github.com/npm/npm/issues>
+35 verbose exit [ 1, true ]
