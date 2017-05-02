@@ -1,4 +1,6 @@
-﻿class TableParser {
+﻿
+
+class TableParser {
     parseFromHtml(tableHtml:HTMLTableElement, threshold:number) {
         let tbody = tableHtml.tBodies[0];
         let attributes = this.getAttributesFromHtml(tableHtml.tHead);
@@ -93,7 +95,7 @@
 
         }
     }
-    createPromise(dataChunk: HTMLCollectionOf<HTMLTableRowElement>, attributes: string[]) {
+    async createPromise(dataChunk: HTMLCollectionOf<HTMLTableRowElement>, attributes: string[]) {
         return new Promise((resolve, reject) => {
             this.parseDataChunk(dataChunk, attributes);
         });
