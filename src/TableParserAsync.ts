@@ -1,10 +1,8 @@
 ﻿
-
 class TableParser {
-    parseFromHtml(tableHtml:HTMLTableElement, threshold:number) {
+    async parseFromHtml(tableHtml:HTMLTableElement, threshold:number, callback:Function) {
         let tbody = tableHtml.tBodies[0];
-        let attributes = this.getAttributesFromHtml(tableHtml.tHead);
-        let list = [];
+        let attributes = this.getAttributesFromHtml((tableHtml.tHead.children[0]) as any);
         //create Promises based on threshold  
         let numberOfPromises: number = tbody.rows.length / threshold+1;
         for (let i = 0; i < numberOfPromises; i++) {
@@ -18,13 +16,14 @@ class TableParser {
                 dataChunk.push(tbody.rows[i]);
                 startingIndex++;
             }
-            this.createPromise((dataChunk) as any, attributes);
+            let result = this.createPromise((dataChunk) as any, attributes);
+            result.then(data => {callback(data)});
         }
-        return list;
-    }
-    getAttributesFromHtml(headerRow:HTMLTableSectionElement) {
        
-            let cellsArray = headerRow.children[0];
+    }
+    getAttributesFromHtml(headerRow:HTMLTableRowElement) {
+
+        let cellsArray = headerRow.cells;
 
 
         var attributes = [];
@@ -87,17 +86,19 @@ class TableParser {
     
     return newObject;
     }
-    parseDataChunk(dataChunk: HTMLCollectionOf<HTMLTableRowElement>, attributes: string[]) {
+    parseDataChunk(dataChunk: HTMLCollectionOf<HTMLTableRowElement>, attributes: string[]):ITableRow[] {
         let list: ITableRow[]=[];
         for (var i = 0; i < dataChunk.length; i++) {
-            let newObject = this.createObjectFromRow(dataChunk.item(i),attributes);
+            let newObject = this.createObjectFromRow(dataChunk[i],attributes);
             list.push(newObject);
 
         }
+        return list;
     }
-    async createPromise(dataChunk: HTMLCollectionOf<HTMLTableRowElement>, attributes: string[]) {
+    createPromise(dataChunk: HTMLCollectionOf<HTMLTableRowElement>, attributes: string[]) {
         return new Promise((resolve, reject) => {
-            this.parseDataChunk(dataChunk, attributes);
+            let list = this.parseDataChunk(dataChunk, attributes);
+            resolve(list);
         });
     }
 }

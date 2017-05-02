@@ -36,29 +36,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var TableParser = (function () {
     function TableParser() {
     }
-    TableParser.prototype.parseFromHtml = function (tableHtml, threshold) {
-        var tbody = tableHtml.tBodies[0];
-        var attributes = this.getAttributesFromHtml(tableHtml.tHead);
-        var list = [];
-        //create Promises based on threshold  
-        var numberOfPromises = tbody.rows.length / threshold + 1;
-        for (var i = 0; i < numberOfPromises; i++) {
-            var startingIndex = i * threshold;
-            var endingIndex = startingIndex + threshold;
-            if (endingIndex > tbody.rows.length)
-                endingIndex = tableHtml.rows.length;
-            var dataChunk = [];
-            //walk up 
-            while (startingIndex <= endingIndex) {
-                dataChunk.push(tbody.rows[i]);
-                startingIndex++;
-            }
-            this.createPromise((dataChunk), attributes);
-        }
-        return list;
+    TableParser.prototype.parseFromHtml = function (tableHtml, threshold, callback) {
+        return __awaiter(this, void 0, void 0, function () {
+            var tbody, attributes, numberOfPromises, i, startingIndex, endingIndex, dataChunk, result;
+            return __generator(this, function (_a) {
+                tbody = tableHtml.tBodies[0];
+                attributes = this.getAttributesFromHtml((tableHtml.tHead.children[0]));
+                numberOfPromises = tbody.rows.length / threshold + 1;
+                for (i = 0; i < numberOfPromises; i++) {
+                    startingIndex = i * threshold;
+                    endingIndex = startingIndex + threshold;
+                    if (endingIndex > tbody.rows.length)
+                        endingIndex = tableHtml.rows.length;
+                    dataChunk = [];
+                    //walk up 
+                    while (startingIndex <= endingIndex) {
+                        dataChunk.push(tbody.rows[i]);
+                        startingIndex++;
+                    }
+                    result = this.createPromise((dataChunk), attributes);
+                    result.then(function (data) { callback(data); });
+                }
+                return [2 /*return*/];
+            });
+        });
     };
     TableParser.prototype.getAttributesFromHtml = function (headerRow) {
-        var cellsArray = headerRow.children[0];
+        var cellsArray = headerRow.cells;
         var attributes = [];
         for (var entry in cellsArray) {
             if (cellsArray[entry].outerText !== undefined) {
@@ -116,18 +120,16 @@ var TableParser = (function () {
     TableParser.prototype.parseDataChunk = function (dataChunk, attributes) {
         var list = [];
         for (var i = 0; i < dataChunk.length; i++) {
-            var newObject = this.createObjectFromRow(dataChunk.item(i), attributes);
+            var newObject = this.createObjectFromRow(dataChunk[i], attributes);
             list.push(newObject);
         }
+        return list;
     };
     TableParser.prototype.createPromise = function (dataChunk, attributes) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.parseDataChunk(dataChunk, attributes);
-                    })];
-            });
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var list = _this.parseDataChunk(dataChunk, attributes);
+            resolve(list);
         });
     };
     return TableParser;

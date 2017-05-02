@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "outDir": "./built",
+        "allowJs": false,
+		"lib": ["dom", "es2015.promise", "es5"],
+		"target":"es3"
+		
+    },
+    "include": [
+        "./src/**/*"
+    ]
+}

@@ -1,12 +1,11 @@
-var TableBuilder=function(numColumns, numRows, tableAttributeString, styleClasses, container){
+var TableBuilder=function(numColumns, numRows, styleClasses, container){
 		console.log('Building table')
 	//build table with style classes
-	var table="<table id='tester' class='"+styleClasses+'>'
-
+	var table="<table id='tester' class='"+styleClasses+"'>"
 	//build thead
 	var thead='<thead>'
-	for(var thindex=0;thindex<=numColumns;thindex++){
-		var colHeader="<th>"+"Column"+thindex+"<span id='icon'></span></th>";
+	for(var thindex=0;thindex<numColumns;thindex++){
+		var colHeader="<th >"+"Column"+thindex+"</th>";
 		thead+=colHeader;
 	}
 	thead+="</thead>";
