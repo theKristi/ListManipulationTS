@@ -1,4 +1,4 @@
-﻿import * as _ from "lodash";
+﻿import * as _ from "lodash"  ;
 class TableParser {
     async parseFromHtml(tableHtml:HTMLTableElement, threshold:number, callback:Function) {
         let tbody = tableHtml.tBodies[0];

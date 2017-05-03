@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -33,36 +34,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-//import * as _ from "lodash";
+var _ = require("lodash");
 var TableParser = (function () {
     function TableParser() {
     }
     TableParser.prototype.parseFromHtml = function (tableHtml, threshold, callback) {
         return __awaiter(this, void 0, void 0, function () {
-            var tbody, attributes, numberOfPromises, i, startingIndex, endingIndex, dataChunk, result;
+            var _this = this;
+            var tbody, attributes, numberOfPromises, datachunks;
             return __generator(this, function (_a) {
                 tbody = tableHtml.tBodies[0];
                 attributes = this.getAttributesFromHtml((tableHtml.tHead.children[0]));
                 numberOfPromises = tbody.rows.length / threshold + 1;
-                /*let datachunks = _.chunk(tbody.rows, numberOfPromises);
-                _.each(datachunks,dataChunk => {
-                    let result = this.createPromise((dataChunk) as any, attributes);
-                    result.then(data => { callback(data) });
-                });*/
-                for (i = 0; i < numberOfPromises; i++) {
-                    startingIndex = i * threshold;
-                    endingIndex = startingIndex + threshold;
-                    if (endingIndex > tbody.rows.length)
-                        endingIndex = tableHtml.rows.length;
-                    dataChunk = [];
-                    //walk up 
-                    while (startingIndex <= endingIndex) {
-                        dataChunk.push(tbody.rows[i]);
-                        startingIndex++;
-                    }
-                    result = this.createPromise((dataChunk), attributes);
+                datachunks = _.chunk(tbody.rows, numberOfPromises);
+                _.each(datachunks, function (dataChunk) {
+                    var result = _this.createPromise((dataChunk), attributes);
                     result.then(function (data) { callback(data); });
-                }
+                });
                 return [2 /*return*/];
             });
         });
