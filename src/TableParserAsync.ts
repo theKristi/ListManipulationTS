@@ -1,16 +1,16 @@
-﻿//import * as _ from "lodash";
+﻿import * as _ from "lodash";
 class TableParser {
     async parseFromHtml(tableHtml:HTMLTableElement, threshold:number, callback:Function) {
         let tbody = tableHtml.tBodies[0];
         let attributes = this.getAttributesFromHtml((tableHtml.tHead.children[0]) as any);
         //create Promises based on threshold  
         let numberOfPromises: number = tbody.rows.length / threshold + 1;
-        /*let datachunks = _.chunk(tbody.rows, numberOfPromises);
+        let datachunks = _.chunk(tbody.rows, numberOfPromises);
         _.each(datachunks,dataChunk => {
             let result = this.createPromise((dataChunk) as any, attributes);
             result.then(data => { callback(data) });
-        });*/
-        for (let i = 0; i < numberOfPromises; i++) {
+        });
+        /*for (let i = 0; i < numberOfPromises; i++) {
             let startingIndex: number = i * threshold;
             let endingIndex: number = startingIndex + threshold;
             if (endingIndex > tbody.rows.length)
@@ -23,7 +23,7 @@ class TableParser {
             }
             let result = this.createPromise((dataChunk) as any, attributes);
             result.then(data => { callback(data) });
-        }
+        }*/
 
 
     }
