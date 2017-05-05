@@ -1,5 +1,5 @@
-﻿import * as _ from "lodash"  ;
-class TableParser {
+﻿import * as _ from "lodash";
+export class TableParser {
     async parseFromHtml(tableHtml:HTMLTableElement, threshold:number, callback:Function) {
         let tbody = tableHtml.tBodies[0];
         let attributes = this.getAttributesFromHtml((tableHtml.tHead.children[0]) as any);
@@ -7,7 +7,7 @@ class TableParser {
         let numberOfPromises: number = tbody.rows.length / threshold + 1;
         let datachunks = _.chunk(tbody.rows, numberOfPromises);
         _.each(datachunks,dataChunk => {
-            let result = this.createPromise((dataChunk) as any, attributes);
+            let result =  this.createPromise((dataChunk) as any, attributes);
             result.then(data => { callback(data) });
         });
         /*for (let i = 0; i < numberOfPromises; i++) {
