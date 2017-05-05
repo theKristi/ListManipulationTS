@@ -1,0 +1,25 @@
+{
+  "name": "listmanipulationts",
+  "version": "1.0.0",
+  "description": "Utilities for HTML tables",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theKristi/ListManipulationTS.git"
+  },
+  "keywords": [
+    "Sort",
+    "Table",
+    "parse",
+    "json"
+  ],
+  "author": "Kristi Marks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theKristi/ListManipulationTS/issues"
+  },
+  "homepage": "https://github.com/theKristi/ListManipulationTS#readme"
+}
