@@ -18,8 +18,8 @@ export class TableParser {
                 dataChunk.push(tbody.rows[i]);
                 startingIndex++;
             }
-            let result = await this.createPromise((dataChunk) as any, attributes);
-            result.then(data => { callback(data) });
+           let result:ITableRow[] = await this.createPromise((dataChunk) as any, attributes);
+             callback(result);
         }
 
 
@@ -98,7 +98,7 @@ export class TableParser {
         }
         return list;
     }
-    createPromise(dataChunk: HTMLCollectionOf<HTMLTableRowElement>, attributes: string[]) {
+    createPromise(dataChunk: HTMLCollectionOf<HTMLTableRowElement>, attributes: string[]):Promise<ITableRow[]> {
         return new Promise((resolve, reject) => {
             let list = this.parseDataChunk(dataChunk, attributes);
             resolve(list);
