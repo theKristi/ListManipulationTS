@@ -1,6 +1,8 @@
 ﻿import * as _ from "lodash";
+//import Promise from "es2015";
+
 export class TableParser {
-    async parseFromHtml(tableHtml:HTMLTableElement, threshold:number, callback:Function) {
+   parseFromHtml(tableHtml:HTMLTableElement, threshold:number, callback:Function) {
         let tbody = tableHtml.tBodies[0];
         let attributes = this.getAttributesFromHtml((tableHtml.tHead.children[0]) as any);
         //create Promises based on threshold  
@@ -10,6 +12,7 @@ export class TableParser {
             let result =  this.createPromise((dataChunk) as any, attributes);
             result.then(data => { callback(data) });
         });
+        
         /*for (let i = 0; i < numberOfPromises; i++) {
             let startingIndex: number = i * threshold;
             let endingIndex: number = startingIndex + threshold;

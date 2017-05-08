@@ -1,5 +1,13 @@
-﻿import { tableGenerator } from "./TableGenerator";
-function buildTable() {
-    tableGenerator(5, 10000, "table table-bordered","#tableWrapper");
-}
-buildTable();
+﻿import { TableParser } from "./TableParserAsync";
+document.addEventListener("DOMContentLoaded", function (event) {
+    //do work
+    //tableViews = [];
+    var parser= new TableParser();
+    let tables:HTMLCollectionOf<HTMLTableElement> = document.querySelectorAll("[data-list-manipulate]") as HTMLCollectionOf<HTMLTableElement>;
+    for (var i = 0; i < tables.length; i++) {
+        parser.parseFromHtml(tables[i], 1000, function(data){
+        	console.log("parsed data");
+        });
+    }
+    
+});
