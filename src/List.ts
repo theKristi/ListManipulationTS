@@ -10,34 +10,37 @@ class List<T> {
         //TODO:ensure type safety
         this._list = list;
     }
-    function isValidList(List: T[]){
+    static function isValidList(List: T[])
+	{
          list.forEach(function(entry) {
         if (typeof entry !== 'object') {
             valid = false;
         }
     });
-    if (valid != undefined)
-        return false;
-    if (list.length>0) {
-        var propNames = JSON.stringify(Object.getOwnPropertyNames(list[0]));
-        for (var i = 1; i < list.length; i++) {
-            var objectPropNames = JSON.stringify(Object.getOwnPropertyNames(list[i]));
-            if (objectPropNames !== propNames) {
-                return false;
-            }
+		if (valid != undefined)
+			return false;
+			if (list.length>0) 
+			{
+				var propNames = JSON.stringify(Object.getOwnPropertyNames(list[0]));
+				for (var i = 1; i < list.length; i++) 
+				{
+					var objectPropNames = JSON.stringify(Object.getOwnPropertyNames(list[i]));
+					if (objectPropNames !== propNames) 
+						return false;
+				
 
-        }
-    }
-    return true;
+				}
+			}
+		return true;
     }
     //functions:
     //isValidList(list:T[]):bool
     //getValidationErrors(list:T[]):string[]
     //sort(sublist:T[],properties:string[], asc:bool):T[]
     //search(sublist:T[], target:string, properties:string[])T[]
-    addRange(list: T[]): boolean {
+    /*addRange(list: T[]): boolean {
         if(isValidSublist(list))
-    }
+    }*/
 
 
 }
