@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var List = (function () {
     function List() {
     }
@@ -7,35 +7,37 @@ var List = (function () {
         return this._list;
     };
     List.prototype.setList = function (list) {
-        if (List.isValidList(list))
+        if (this.isValidList(list))
             this._list = list;
         else {
             throw "List is not valid";
         }
     };
-    List.isValidList = function (list) {
+    List.prototype.isValidList = function (list) {
         if (list === undefined || list === null)
             return false;
         if (!Array.isArray(list))
             return false;
-        var valid;
-        list.forEach(function (entry) {
-            if (typeof entry !== 'object') {
-                valid = false;
-            }
-        });
-        if (valid != undefined)
-            return false;
-        if (list.length > 0) {
-            var propNames = JSON.stringify(Object.getOwnPropertyNames(list[0]));
-            for (var i = 1; i < list.length; i++) {
-                var objectPropNames = JSON.stringify(Object.getOwnPropertyNames(list[i]));
-                if (objectPropNames !== propNames) {
-                    return false;
+        var firstElement = list[0];
+        try {
+            list.forEach(function (entry) {
+                if (typeof entry !== 'object') {
+                    throw "Not valid";
                 }
-            }
+                else {
+                    var propNames = JSON.stringify(Object.getOwnPropertyNames(firstElement));
+                    var objectPropNames = JSON.stringify(Object.getOwnPropertyNames(entry));
+                    if (objectPropNames !== propNames) {
+                        throw "Not Valid";
+                    }
+                }
+            });
+            return true;
         }
-        return true;
+        catch (e) {
+            return false;
+        }
     };
     return List;
 }());
+exports.List = List;
