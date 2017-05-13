@@ -1,7 +1,7 @@
 ﻿
 export class TableParser {
    async parseFromHtml(tableHtml:HTMLTableElement, threshold:number, callback:Function) {
-        let tbody = tableHtml.tBodies[0];
+        let tbody:HTMLTableSectionElement = tableHtml.tBodies[0] as any;
         let attributes = this.getAttributesFromHtml((tableHtml.tHead.children[0]) as any);
         //create Promises based on threshold  
         let numberOfPromises: number = Math.floor(tbody.rows.length / threshold);
@@ -26,14 +26,14 @@ export class TableParser {
     }
     getAttributesFromHtml(headerRow:HTMLTableRowElement) {
 
-        let cellsArray = headerRow.cells;
+        let cellsArray:HTMLCollectionOf<HTMLTableDataCellElement> = headerRow.cells;
 
 
         var attributes = [];
         for (var entry in cellsArray) {
 
-            if (cellsArray[entry].outerText !== undefined) {
-                var string = cellsArray[entry].outerText.trim();
+            if (cellsArray[entry].textContent!== undefined) {
+                var string = cellsArray[entry].textContent.trim();
                 string = string.replace(/\s+/g, '');
                 attributes.push(string);
 
@@ -50,7 +50,7 @@ export class TableParser {
     return object;
     }
     createObjectFromRow(tableRow:HTMLTableRowElement,attributes:string[]):ITableRow {
-       // let rowparent = tableRow;
+       
         let newObject = this.emptyObject(attributes, tableRow);
     
         var row = tableRow.children;
@@ -92,7 +92,7 @@ export class TableParser {
     parseDataChunk(dataChunk: HTMLCollectionOf<HTMLTableRowElement>, attributes: string[]):ITableRow[] {
         let list: ITableRow[]=[];
         for (var i = 0; i < dataChunk.length; i++) {
-            let newObject = this.createObjectFromRow(dataChunk[i],attributes);
+            let newObject = this.createObjectFromRow(dataChunk[i] as any ,attributes);
             list.push(newObject);
 
         }
