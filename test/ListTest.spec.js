@@ -2,12 +2,14 @@
 
 describe("ListManipulation Tests", function() {
     describe("isListValid Tests", function() {
-        var List=require("../built/list.js");
+        var ListMod=require("../built/List");
+        var List=ListMod.List;
+        console.log("list:"+ JSON.stringify(Object.getOwnPropertyNames(List)));
         
         it("returns false if not array", function() {
             var test = 'Hello';
             expect(List.isValidList(test)).toBeFalsy();
-            done();
+            
         });
 
         it("returns false if not array of objects", function() {

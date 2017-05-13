@@ -7,16 +7,37 @@ var List = (function () {
         return this._list;
     };
     List.prototype.setList = function (list) {
-        //TODO:ensure type safety
-        this._list = list;
+        if (List.isValidList(list))
+            this._list = list;
+        else {
+            throw "List is not valid";
+        }
     };
-    //functions:
-    //isValidList(list:T[]):bool
-    //getValidationErrors(list:T[]):string[]
-    //sort(sublist:T[],properties:string[], asc:bool):T[]
-    //search(subulist:T[], target:string, properties:string[])T[]
-    List.prototype.addRange = function (list) {
-        return false;
+    List.isValidList = function (list) {
+        if (list === undefined || list === null)
+            return false;
+        if (!Array.isArray(list))
+            return false;
+        var firstElement = list[0];
+        try {
+            list.forEach(function (entry) {
+                if (typeof entry !== 'object') {
+                    throw "Not valid";
+                }
+                else {
+                    var propNames = JSON.stringify(Object.getOwnPropertyNames(firstElement));
+                    var objectPropNames = JSON.stringify(Object.getOwnPropertyNames(entry));
+                    if (objectPropNames !== propNames) {
+                        throw "Not Valid";
+                    }
+                }
+            });
+            return true;
+        }
+        catch (e) {
+            return false;
+        }
     };
     return List;
 }());
+exports.List = List;
