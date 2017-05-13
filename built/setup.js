@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     var tables = document.querySelectorAll("[data-list-manipulate]");
     for (var i = 0; i < tables.length; i++) {
         parser.parseFromHtml(tables[i], 10000, function (data) {
-            console.log("parsed data");
+            console.log(data);
         });
     }
 });

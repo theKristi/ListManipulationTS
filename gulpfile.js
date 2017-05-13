@@ -22,5 +22,5 @@ gulp.task("default", ["copy-html"], function () {
     .plugin(tsify)
     .bundle()
     .pipe(source('bundle.js'))
-    .pipe(gulp.dest("built"));
+    .pipe(gulp.dest("../BackendTableGenerator/public/scripts"));
 });
