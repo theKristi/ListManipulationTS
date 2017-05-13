@@ -4,7 +4,7 @@
   "description": "Utilities for HTML tables",
   "main": "setup.js",
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine-node test"
   },
   "repository": {
     "type": "git",

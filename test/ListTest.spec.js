@@ -1,6 +1,31 @@
 
 
 describe("ListManipulation Tests", function() {
+    describe("isListValid Tests", function() {
+        var List=require("../built/list.js");
+        
+        it("returns false if not array", function() {
+            var test = 'Hello';
+            expect(List.isValidList(test)).toBeFalsy();
+            done();
+        });
+
+        it("returns false if not array of objects", function() {
+            var test = [{}, 'Hello'];
+            expect(List.isValidList(test)).toBeFalsy();
+        });
+
+        it("returns false if object properties aren't consistant", function() {
+            var listToPass = [{ Hello: "a" }, { World: "b" }];
+            expect(List.isValidList(listToPass)).toBeFalsy();
+        });
+        it("returns true if data is valid", function() {
+            var listToPass = [{ Hello: "a" }, { Hello: "b" }];
+            expect(List.isValidList(listToPass)).toBeTruthy();
+        });
+
+
+    });
    /* describe("Constructor Tests", function() {
 
 
@@ -85,30 +110,7 @@ describe("ListManipulation Tests", function() {
             expect(res).toEqual(sorted);
         });
     });*/
-    describe("isListValid Tests", function() {
-		var List=require("../built/list.js");
-		
-        it("returns false if not array", function() {
-            var test = 'Hello';
-            expect(List.isListValid(test)).toBeFalsy();
-        });
-
-        it("returns false if not array of objects", function() {
-            var test = [{}, 'Hello'];
-            expect(List.isListValid(test)).toBeFalsy();
-        });
-
-        it("returns false if object properties aren't consistant", function() {
-            var listToPass = [{ Hello: "a" }, { World: "b" }];
-            expect(List.isListValid(listToPass)).toBeFalsy();
-        });
-        it("returns true if data is valid", function() {
-            var listToPass = [{ Hello: "a" }, { Hello: "b" }];
-            expect(List.isListValid(listToPass)).toBeTruthy();
-        });
-
-
-    });
+   
     /*describe("Search Tests", function() {
         it("returns valid sublist when target is contained", function() {
             var listToPass = [{ Hello: "a" }, { Hello: "b" }];

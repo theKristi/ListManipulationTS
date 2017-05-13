@@ -6,7 +6,7 @@
         return this._list;
     }
     setList(list:T[]){
-        if(this.isValidList(list))
+        if(List.isValidList(list))
         this._list = list;
         else{
             throw "List is not valid";
