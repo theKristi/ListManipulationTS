@@ -1,10 +1,44 @@
 
 
 describe("ListManipulation Tests", function() {
+     var ListMod=require("../built/List");
+     var List=ListMod.List;
+    describe("constructor Tests", function() {
+
+
+        it("sets _list to [] if passed undefined", function() {
+            var list = new List(undefined);
+            expect(list.getList()).toEqual([]);
+        });
+
+       
+        it("Calls setList if not passed undefined", function () {
+            var setListSpy = spyOn(List.prototype, "setList");
+            var listToPass = [{}];
+            var list = new List(listToPass);
+            expect(setListSpy).toHaveBeenCalled();
+        });
+    });
+    
+    describe("setList Tests", function() {
+        it("sets _list if passed valid data", function() {
+            var list = new List();
+            var toPass = [{ prop1: "1" }, { prop1: "2" }];
+            list.setList(toPass);
+            expect(list.getList()).toEqual(toPass);
+
+        });
+        it("throws error if passed invalid data", function() {
+            var list = new List();
+            var toPass = [{ prop1: "1" }, { prop2: "2" }];
+            expect(function() { list.setList(toPass) }).toThrow("Invalid list: call getValidationErrors(list) for details");
+           
+        });
+    });
+    
     describe("isListValid Tests", function() {
-        var ListMod=require("../built/List");
-        var List=ListMod.List;
-        console.log("list:"+ JSON.stringify(Object.getOwnPropertyNames(List)));
+       
+       // console.log("list:"+ JSON.stringify(Object.getOwnPropertyNames(List)));
         
         it("returns false if not array", function() {
             var test = 'Hello';
@@ -25,43 +59,83 @@ describe("ListManipulation Tests", function() {
             var listToPass = [{ Hello: "a" }, { Hello: "b" }];
             expect(List.isValidList(listToPass)).toBeTruthy();
         });
-
-
     });
-   /* describe("Constructor Tests", function() {
 
+    describe("getValidationErrors Tests", function(){
+        it("gives error if undefined", function(){
+            var message="data passed in is undefined or null";
+            var result= List.getValidationErrors(undefined)[0];
+            expect(result).toEqual(message);
 
-        it("sets _list to [] if passed undefined", function() {
-            var list = new List(undefined);
-            expect(list.getList()).toEqual([]);
         });
+        it("gives error if not Array", function(){
+            var message="data passed in is not an array"
+            var result=List.getValidationErrors("Hello")[0];
+            expect(result).toEqual(message);
 
+        });
+        it("gives error if Array not all objects", function(){
+            var message="Array is not consistantly of type object"
+            var toPass=[{First:"value"},"hello"];
+            var result=List.getValidationErrors(toPass)[0];
+            expect(result).toEqual(message);            
+
+        });
+         it("gives error if object properties aren't consistant", function() {
+            var listToPass = [{ Hello: "a" }, { World: "b" }];
+
+            var result=List.getValidationErrors(listToPass)[0];
+            expect(result).toContain("does not have consistant properties");
+        });
+         it("returns no errors if data is valid", function(){
+            var listToPass = [{ Hello: "a" }, { Hello: "b" }];
+            var result=List.getValidationErrors(listToPass);
+            expect(result).toEqual([]);
+        });
+    });
+
+    describe("isValidSublist Tests", function(){
+        it("returns true if valid sublist", function(){
+            let myList=new List([{Greeting:"Hello"},{Greeting:"Sup?"}]);
+            let sublist=[{Greeting:"Watcher!"}];
+            var result=myList.isValidSublist(sublist);
+            expect(result).toBeTruthy();
+
+        });
+        it("returns false if invalid sublist", function(){
+            let myList=new List([{Greeting:"Hello"},{Greeting:"Sup?"}]);
+            let sublist=[{Greetings:"Watcher!"}];
+            var result=myList.isValidSublist(sublist);
+            expect(result).toBeFalsy();
+
+        });
+    });
+
+    describe("addRange Tests", function(){
+        it("doesn't add invalid sublist", function(){
+            var initialList=[{ attr: 3 }, { attr: 1 }, { attr: 2 }]
+            var myList=new List(initialList);
+            var toAdd=[{attrs: 4}, {attrs:5}];
+            var result=myList.addRange(toAdd);
+            expect(result).toBeFalsy();
+            expect(myList.getList()).toEqual(initialList);
+
+
+        });
        
-       /* it("Calls setList if not passed undefined", function () {
-            var setListSpy = spyOn(List.prototype, "setList");
-            var listToPass = [{}];
-            var list = new List(listToPass);
-            expect(setListSpy).toHaveBeenCalled();
-        });
-        
+        it("adds valid sublist", function(){
+            var initialList=[{ attr: 3 }, { attr: 1 }, { attr: 2 }];
+            var myList=new List(initialList);
+            var toAdd=[{attr: 4}, {attr:5}];
+            var result=myList.addRange(toAdd);
+            expect(result).toBeTruthy();
+            expect(myList.getList().length).toEqual(5);
 
-    });
-    describe("SetList Tests", function() {
-        it("sets _list if passed valid data", function() {
-            var list = new List();
-            var toPass = [{ prop1: "1" }, { prop1: "2" }];
-            list.setList(toPass);
-            expect(list.getList()).toEqual(toPass);
 
         });
-        it("throws error if passed invalid data", function() {
-            var list = new List();
-            var toPass = [{ prop1: "1" }, { prop2: "2" }];
-            expect(function() { list.setList(toPass) }).toThrow("Invalid list: call getValidationErrors(list) for details");
-           
-        });
     });
-    describe("Sort Tests", function() {
+   
+   /* describe("Sort Tests", function() {
 
 
         it("sorts string property values in ascending alphabetical order", function() {

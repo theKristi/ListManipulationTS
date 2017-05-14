@@ -1,7 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var List = (function () {
-    function List() {
+    function List(list) {
+        if (list !== undefined)
+            this.setList(list);
+        else {
+            this._list = [];
+        }
     }
     List.prototype.getList = function () {
         return this._list;
@@ -10,8 +15,24 @@ var List = (function () {
         if (List.isValidList(list))
             this._list = list;
         else {
-            throw "List is not valid";
+            throw "Invalid list: call getValidationErrors(list) for details";
         }
+    };
+    List.prototype.addRange = function (list) {
+        if (this.isValidSublist(list)) {
+            this._list = this._list.concat(list);
+            return true;
+        }
+        else
+            return false;
+    };
+    List.prototype.isValidSublist = function (list) {
+        if (List.isValidList(list)) {
+            var passedListProperties = JSON.stringify(Object.getOwnPropertyNames(list[0]));
+            var listProprties = JSON.stringify(Object.getOwnPropertyNames(this._list[0]));
+            return listProprties === passedListProperties;
+        }
+        return false;
     };
     List.isValidList = function (list) {
         if (list === undefined || list === null)
@@ -37,6 +58,32 @@ var List = (function () {
         catch (e) {
             return false;
         }
+    };
+    List.getValidationErrors = function (list) {
+        var errors = [];
+        if (list === undefined || list === null) {
+            errors.push("data passed in is undefined or null");
+        }
+        else if (!Array.isArray(list))
+            errors.push("data passed in is not an array");
+        else {
+            var firstElement = list[0];
+            list.forEach(function (entry, index) {
+                if (typeof entry !== 'object') {
+                    if (errors.indexOf("Array is not consistantly of type object") <= 0)
+                        errors.push("Array is not consistantly of type object");
+                }
+                else {
+                    var propNames = JSON.stringify(Object.getOwnPropertyNames(firstElement));
+                    var objectPropNames = JSON.stringify(Object.getOwnPropertyNames(entry));
+                    if (objectPropNames !== propNames) {
+                        errors.push("Member at index " + index + " does not have consistant properties " +
+                            "with member at index 0");
+                    }
+                }
+            });
+        }
+        return errors;
     };
     return List;
 }());
