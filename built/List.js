@@ -29,8 +29,11 @@ var List = (function () {
     List.prototype.isValidSublist = function (list) {
         if (List.isValidList(list)) {
             var passedListProperties = JSON.stringify(Object.getOwnPropertyNames(list[0]));
-            var listProprties = JSON.stringify(Object.getOwnPropertyNames(this._list[0]));
-            return listProprties === passedListProperties;
+            if (this._list.length > 0) {
+                var listProprties = JSON.stringify(Object.getOwnPropertyNames(this._list[0]));
+                return listProprties === passedListProperties;
+            }
+            return true;
         }
         return false;
     };
@@ -64,8 +67,9 @@ var List = (function () {
         if (list === undefined || list === null) {
             errors.push("data passed in is undefined or null");
         }
-        else if (!Array.isArray(list))
+        else if (!Array.isArray(list)) {
             errors.push("data passed in is not an array");
+        }
         else {
             var firstElement = list[0];
             list.forEach(function (entry, index) {

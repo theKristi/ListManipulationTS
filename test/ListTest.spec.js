@@ -95,6 +95,12 @@ describe("ListManipulation Tests", function() {
     });
 
     describe("isValidSublist Tests", function(){
+        it("returns true if list is empty", function(){
+            let myList=new List([]);
+            let sublist=[{Greeting:"Watcher!"}];
+            var result=myList.isValidSublist(sublist);
+            expect(result).toBeTruthy();
+        })
         it("returns true if valid sublist", function(){
             let myList=new List([{Greeting:"Hello"},{Greeting:"Sup?"}]);
             let sublist=[{Greeting:"Watcher!"}];

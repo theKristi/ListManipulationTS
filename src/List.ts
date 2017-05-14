@@ -33,8 +33,11 @@ export class List<T> {
     isValidSublist(list:T[]):boolean{
        if(List.isValidList(list)){
            let passedListProperties=JSON.stringify(Object.getOwnPropertyNames(list[0]));
+           if(this._list.length>0){
            let listProprties=JSON.stringify(Object.getOwnPropertyNames(this._list[0]));
            return listProprties===passedListProperties;
+       }
+       return true;
 
        }
        return false;
@@ -99,10 +102,7 @@ export class List<T> {
     }
     //sort(sublist:T[],properties:string[], asc:bool):T[]
     //search(sublist:T[], target:string, properties:string[])T[]
-    /*addRange(list: T[]): boolean {
-        if(isValidSublist(list))
-    }*/
-
+    
 
 }
 
