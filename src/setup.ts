@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     var parser= new TableParser();
     let tables:HTMLCollectionOf<HTMLTableElement> = document.querySelectorAll("[data-list-manipulate]") as HTMLCollectionOf<HTMLTableElement>;
     for (var i = 0; i < tables.length; i++) {
-        parser.parseFromHtml(tables[i] as any, 10000, function(data){
+        parser.parseFromHtml(tables[i] as HTMLTableElement, 10000, function(data){
         	console.log(data);
         });
     }

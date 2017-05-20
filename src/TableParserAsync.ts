@@ -1,8 +1,11 @@
 ﻿
 export class TableParser {
    async parseFromHtml(tableHtml:HTMLTableElement, threshold:number, callback:Function) {
-        let tbody:HTMLTableSectionElement = tableHtml.tBodies[0] as any;
-        let attributes = this.getAttributesFromHtml((tableHtml.tHead.children[0]) as any);
+       if(tableHtml==undefined)
+           throw "table is not valid";
+           
+        let tbody:HTMLTableSectionElement = <HTMLTableSectionElement>tableHtml.tBodies[0];
+        let attributes = this.getAttributesFromHtml(<HTMLTableRowElement>(tableHtml.tHead.children[0]));
         //create Promises based on threshold  
         let numberOfPromises: number = Math.floor(tbody.rows.length / threshold);
         if(tbody.rows.length % threshold>0)
@@ -10,15 +13,15 @@ export class TableParser {
         for (let i = 0; i < numberOfPromises; i++) {
             let startingIndex: number = i * threshold;
             let endingIndex: number = startingIndex + threshold;
-            if (endingIndex > tbody.rows.length)
-                endingIndex = tableHtml.rows.length;
-            let dataChunk = [];
+            if (endingIndex >tbody.rows.length)
+                endingIndex = tbody.rows.length;
+            let dataChunk:HTMLTableRowElement[] = [];
             //walk up 
-            while (startingIndex <= endingIndex) {
-                dataChunk.push(tbody.rows[startingIndex]);
+            while (startingIndex < endingIndex) {
+                dataChunk.push(<HTMLTableRowElement>tbody.rows[startingIndex]);
                 startingIndex++;
             }
-           let result:ITableRow[] = await this.createPromise((dataChunk) as any, attributes);
+           let result:ITableRow[] = await this.createPromise(dataChunk, attributes);
              callback(result);
         }
 
@@ -52,7 +55,6 @@ export class TableParser {
     createObjectFromRow(tableRow:HTMLTableRowElement,attributes:string[]):ITableRow {
        
         let newObject = this.emptyObject(attributes, tableRow);
-    
         var row = tableRow.children;
 
     for (var cell = 0; cell < row.length; cell++) {
@@ -89,17 +91,18 @@ export class TableParser {
     
     return newObject;
     }
-    parseDataChunk(dataChunk: HTMLCollectionOf<HTMLTableRowElement>, attributes: string[]):ITableRow[] {
+    parseDataChunk(dataChunk: HTMLTableRowElement[], attributes: string[]):ITableRow[] {
         let list: ITableRow[]=[];
         for (var i = 0; i < dataChunk.length; i++) {
-            let newObject = this.createObjectFromRow(dataChunk[i] as any ,attributes);
+            let newObject = this.createObjectFromRow(dataChunk[i] as HTMLTableRowElement ,attributes);
             list.push(newObject);
 
         }
         return list;
     }
-    createPromise(dataChunk: HTMLCollectionOf<HTMLTableRowElement>, attributes: string[]):Promise<ITableRow[]> {
+    createPromise(dataChunk: HTMLTableRowElement[], attributes: string[]):Promise<ITableRow[]> {
         return new Promise((resolve, reject) => {
+
             let list = this.parseDataChunk(dataChunk, attributes);
             resolve(list);
         });
