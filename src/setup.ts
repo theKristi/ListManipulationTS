@@ -1,9 +1,7 @@
 ﻿import { TableParser } from "./TableParserAsync";
 import { List } from "./List"
 document.addEventListener("DOMContentLoaded", function (event) {
-    //do work
-    //tableViews = [];
-    //console.log("List prop:"+Object.getOwnPropertyNames(List));
+   
     var myList=new List([]);
     var parser= new TableParser();
     let tables:HTMLCollectionOf<HTMLTableElement> = document.querySelectorAll("[data-list-manipulate]") as HTMLCollectionOf<HTMLTableElement>;
@@ -13,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         	var res=myList.addRange(data);
             console.log("data added: "+ res);
         	table.classList.remove("hidden");
+        	myList.sort(myList.getList(),["Column1"], false);
         });
     }
     

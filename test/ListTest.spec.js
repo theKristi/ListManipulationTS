@@ -141,14 +141,14 @@ describe("ListManipulation Tests", function() {
         });
     });
    
-   /* describe("Sort Tests", function() {
+    describe("Sort Tests", function() {
 
 
         it("sorts string property values in ascending alphabetical order", function() {
             var listToSort = [{ attr: 'd' }, { attr: 'r' }, { attr: 'b' }];
             var sorted = [{ attr: 'b' }, { attr:'d'  }, { attr: 'r' }];
             var list = new List();
-            var res=list.sort(listToSort, 'attr', true);
+            var res=list.sort(listToSort, ['attr'], true);
             expect(res).toEqual(sorted);
         });
 
@@ -156,7 +156,7 @@ describe("ListManipulation Tests", function() {
             var listToSort = [{ attr: 'c' }, { attr: 'a' }, { attr: 'b' }];
             var sorted = [{ attr: 'c' }, { attr: 'b' }, { attr: 'a' }];
             var list = new List();
-            var res=list.sort(listToSort, 'attr', false);
+            var res=list.sort(listToSort, ['attr'], false);
             expect(res).toEqual(sorted);
         });
 
@@ -164,7 +164,7 @@ describe("ListManipulation Tests", function() {
             var listToSort = [{ attr: 3 }, { attr: 1 }, { attr: 2 }];
             var sorted = [{ attr: 1 }, { attr: 2 }, { attr: 3 }];
             var list = new List(listToSort);
-            var res = list.sort(listToSort, 'attr', true);
+            var res = list.sort(listToSort, ['attr'], true);
             expect(res).toEqual(sorted);
         });
 
@@ -172,7 +172,7 @@ describe("ListManipulation Tests", function() {
             var listToSort = [{ attr: 5 }, { attr: 1 }, { attr: 2 }];
             var sorted = [{ attr: 5 }, { attr: 2 }, { attr: 1 }];
             var list = new List();
-            var res = list.sort(listToSort, 'attr', false);
+            var res = list.sort(listToSort, ['attr'], false);
             expect(res).toEqual(sorted);
         });
 
@@ -180,7 +180,7 @@ describe("ListManipulation Tests", function() {
             var listToSort = [{ attr: true }, { attr: false }, { attr: true }];
             var sorted = [{ attr: false }, { attr: true }, { attr: true }];
             var list = new List();
-            var res = list.sort(listToSort, 'attr', true);
+            var res = list.sort(listToSort, ['attr'], true);
             expect(res).toEqual(sorted);
         });
 
@@ -188,10 +188,10 @@ describe("ListManipulation Tests", function() {
             var listToSort = [{ attr: true }, { attr: false }, { attr: true }];
             var sorted = [{ attr: true }, { attr: true }, { attr: false }];
             var list = new List();
-            var res = list.sort(listToSort, 'attr', false);
+            var res = list.sort(listToSort, ['attr'], false);
             expect(res).toEqual(sorted);
         });
-    });*/
+    });
    
     /*describe("Search Tests", function() {
         it("returns valid sublist when target is contained", function() {

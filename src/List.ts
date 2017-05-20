@@ -1,3 +1,5 @@
+﻿import * as _ from "lodash"
+
 export class List<T> {
     //get, set
     private _list: T[];
@@ -41,8 +43,13 @@ export class List<T> {
 
        }
        return false;
-    }
     
+    }
+    sort(sublist:T[],properties:string[], asc:boolean):T[]{
+        let order=[]
+       asc? order.push('asc'):order.push('desc')
+        return _.orderBy(sublist,properties,order)
+    } 
     static isValidList(list: any[]):boolean{
         
         if (list === undefined || list === null)
@@ -100,9 +107,10 @@ export class List<T> {
          }
          return errors;
     }
-    //sort(sublist:T[],properties:string[], asc:bool):T[]
+   
     //search(sublist:T[], target:string, properties:string[])T[]
     
+
 
 }
 
