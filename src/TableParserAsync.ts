@@ -106,6 +106,6 @@ export class TableParser {
     }
 }
 
-interface ITableRow {
+export interface ITableRow {
     html:HTMLTableRowElement
 }
