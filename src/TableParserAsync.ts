@@ -15,7 +15,7 @@ export class TableParser {
             let dataChunk = [];
             //walk up 
             while (startingIndex <= endingIndex) {
-                dataChunk.push(tbody.rows[i]);
+                dataChunk.push(tbody.rows[startingIndex]);
                 startingIndex++;
             }
            let result:ITableRow[] = await this.createPromise((dataChunk) as any, attributes);
