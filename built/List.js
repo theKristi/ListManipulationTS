@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var _ = require("lodash");
 var List = (function () {
     function List(list) {
         if (list !== undefined)
@@ -36,6 +37,12 @@ var List = (function () {
             return true;
         }
         return false;
+    };
+    List.prototype.sort = function (sublist, properties, asc) {
+        var order = [];
+        asc ? order.push('asc') : order.push('desc');
+        var results = _.orderBy(sublist, properties, order);
+        return results;
     };
     List.isValidList = function (list) {
         if (list === undefined || list === null)

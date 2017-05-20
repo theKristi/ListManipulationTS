@@ -48,7 +48,8 @@ export class List<T> {
     sort(sublist:T[],properties:string[], asc:boolean):T[]{
         let order=[]
        asc? order.push('asc'):order.push('desc')
-        return _.orderBy(sublist,properties,order)
+        let results=_.orderBy(sublist,properties,order)
+        return results
     } 
     static isValidList(list: any[]):boolean{
         

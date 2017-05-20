@@ -1,5 +1,6 @@
+import{ ITableRow } from "./TableParserAsync"
 export class DomManipulator{
-	static removeChildren(element:Element){
+	removeChildren(element:Element){
 		if(element){
 			while(element.lastChild){
 				element.removeChild(element.lastChild)
@@ -26,6 +27,14 @@ export class DomManipulator{
     		}		
     	}
 	}
-	
+	buildTable(list:ITableRow[], tableElement:HTMLTableElement){
+		var tbody:Element = tableElement.tBodies[0];
+   		if (tbody)
+        	this.removeChildren(tbody);
+
+    	for (var i = 0; i < list.length; i++) {
+        	tbody.appendChild(list[i].html);
+    }
+}
 		
 }
