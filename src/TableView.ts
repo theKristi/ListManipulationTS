@@ -13,6 +13,7 @@ constructor(table:HTMLTableElement){
 	this._list=new List([]);
 	this._columnsToSort=this._tableElement.querySelectorAll("[data-sort]");
 	this._domManipulator=new DomManipulator();
+	this._asc=true;
 	this.setUpSortEventListeners();
 }
 //properties 
